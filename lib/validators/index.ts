@@ -148,9 +148,19 @@ export interface ValidationResult {
   message: string
 }
 
+// Accented Latin letters, excluding the U+00D7 (×) and U+00F7 (÷) symbols
+// that fall inside the naive À-ÿ range but are not letters.
+const ACCENTED_LETTER_RANGE = 'A-Za-zÀ-ÖØ-öø-ÿ'
+
 /**
  * Validates a full name string to ensure it has at least a first name and a last name,
- * contains only alphabetic characters, and does not have multiple consecutive spaces.
+ * contains only alphabetic characters (optionally hyphenated or with apostrophes, e.g.
+ * "Mary-Jane" or "O'Connor"), and does not have multiple consecutive spaces.
+ *
+ * Uses the same accepted character set as `validNameAndLastName` — the two functions
+ * differ in return shape (`ValidationResult` with a message here, plain `boolean`
+ * there) and in exactly how they split/require name parts, not in what counts as a
+ * valid name character.
  *
  * @param {string} name - The full name string to validate.
  * @returns {ValidationResult} - An object indicating if the name is valid and an error message if not.
@@ -158,6 +168,9 @@ export interface ValidationResult {
  * @example
  * // Valid full name
  * console.log(fullnameValidation('John Doe')); // { valid: true, message: '' }
+ *
+ * // Valid full name with hyphen and apostrophe
+ * console.log(fullnameValidation("Mary-Jane O'Connor")); // { valid: true, message: '' }
  *
  * // Invalid full name (extra spaces)
  * console.log(fullnameValidation('John  Doe')); // { valid: false, message: 'No extra spaces allowed' }
@@ -187,8 +200,9 @@ export function fullnameIsValid(name: string): ValidationResult {
     }
   }
 
+  const namePartRegex = new RegExp(`^[${ACCENTED_LETTER_RANGE}'-]+$`)
   for (const part of nameParts) {
-    if (!/^[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÊÍÏÓÔÕÖÚÇÑ]+$/.test(part)) {
+    if (!namePartRegex.test(part)) {
       return {
         valid: false,
         message: 'Only alphabetic characters are allowed',
@@ -208,6 +222,8 @@ export function fullnameIsValid(name: string): ValidationResult {
  * This function checks if the given name string consists of a valid first name and last name,
  * allowing for spaces, hyphens, and apostrophes.
  *
+ * Uses the same accepted character set as `fullnameIsValid`.
+ *
  * @param {string} name - The name string to be validated.
  * @returns {boolean} - True if the name is valid, otherwise false.
  *
@@ -225,7 +241,9 @@ export function fullnameIsValid(name: string): ValidationResult {
  * console.log(validNameAndLastName("O'Connor")); // true
  */
 export const validNameAndLastName = (name: string): boolean => {
-  const regex = /^[a-zA-ZÀ-ÿ]+([-\s'][a-zA-ZÀ-ÿ]+)+$/
+  const regex = new RegExp(
+    `^[${ACCENTED_LETTER_RANGE}]+([-\\s'][${ACCENTED_LETTER_RANGE}]+)+$`
+  )
   return regex.test(name)
 }
 

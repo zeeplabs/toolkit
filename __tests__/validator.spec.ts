@@ -83,6 +83,27 @@ describe('fullnameIsValid', () => {
       message: 'Only alphabetic characters are allowed',
     })
   })
+
+  test('valid full name with hyphenated first name', () => {
+    expect(fullnameIsValid('Mary-Jane Smith')).toEqual({
+      valid: true,
+      message: '',
+    })
+  })
+
+  test('valid full name with apostrophe', () => {
+    expect(fullnameIsValid("O'Connor Smith")).toEqual({
+      valid: true,
+      message: '',
+    })
+  })
+
+  test('invalid full name (multiplication sign is not a letter)', () => {
+    expect(fullnameIsValid('John Doe×')).toEqual({
+      valid: false,
+      message: 'Only alphabetic characters are allowed',
+    })
+  })
 })
 
 describe('validNameAndLastName', () => {
@@ -100,6 +121,11 @@ describe('validNameAndLastName', () => {
 
   test('valid name with apostrophe', () => {
     expect(validNameAndLastName("O'Connor")).toBe(true)
+  })
+
+  test('rejects multiplication/division signs (not letters)', () => {
+    expect(validNameAndLastName('John Doe×')).toBe(false)
+    expect(validNameAndLastName('John Doe÷')).toBe(false)
   })
 })
 
