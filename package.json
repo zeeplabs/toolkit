@@ -1,7 +1,7 @@
 {
-  "name": "js-essential-kit",
+  "name": "@zeeptech/toolkit",
   "description": "This library provides a comprehensive set of utility functions for various common tasks, including date calculations, formatting, masking, normalizing data, and validation",
-  "version": "1.2.0",
+  "version": "1.0.0",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "sideEffects": false,
@@ -25,10 +25,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/iorder-tech/js-essential-kit.git"
+    "url": "git+https://github.com/zeeplabs/toolkit.git"
   },
   "bugs": {
-    "url": "https://github.com/iorder-tech/js-essential-kit/issues"
+    "url": "https://github.com/zeeplabs/toolkit/issues"
   },
   "keywords": [
     "react-native",
