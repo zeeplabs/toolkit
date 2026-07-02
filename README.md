@@ -211,6 +211,7 @@ base64Decoding('SGVsbG8sIFdvcmxkIQ==') // Ex: 'Hello, World!'
 ### Generate Random Number
 
 - Generates a random number between min and max.
+- ⚠️ Uses `Math.random()` — **not cryptographically secure**. Do not use for tokens, verification codes, or temporary passwords.
 
 ```js
 import { generateRandomNumber } from 'js-essential-kit'
@@ -221,6 +222,7 @@ generateRandomNumber(1, 10) // Ex: 7
 ### Generate Random String
 
 - Generates a random string of specified length.
+- ⚠️ Uses `Math.random()` — **not cryptographically secure**. Do not use for tokens, verification codes, or temporary passwords.
 
 ```js
 import { generateRandomString } from 'js-essential-kit'

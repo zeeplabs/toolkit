@@ -39,6 +39,12 @@ export function base64Decoding(base64: string): string {
 /**
  * Generates a random number between the given min and max values.
  *
+ * ⚠️ Uses `Math.random()`, which is **not cryptographically secure** and is
+ * predictable. Do not use this for tokens, verification codes, temporary
+ * passwords, or any value with a security purpose — use the platform's
+ * CSPRNG instead (e.g. `crypto.getRandomValues` in browsers/React Native,
+ * `crypto.randomInt`/`crypto.randomBytes` in Node.js).
+ *
  * @param {number} min - The minimum value (inclusive).
  * @param {number} max - The maximum value (inclusive).
  * @returns {number} - The generated random number.
@@ -52,6 +58,12 @@ export function generateRandomNumber(min: number, max: number): number {
 
 /**
  * Generates a random string of a length between the given min and max values.
+ *
+ * ⚠️ Uses `Math.random()`, which is **not cryptographically secure** and is
+ * predictable. Do not use this for tokens, verification codes, temporary
+ * passwords, or any value with a security purpose — use the platform's
+ * CSPRNG instead (e.g. `crypto.getRandomValues` in browsers/React Native,
+ * `crypto.randomInt`/`crypto.randomBytes` in Node.js).
  *
  * @param {number} min - The minimum length of the generated string.
  * @param {number} max - The maximum length of the generated string.
