@@ -1,5 +1,5 @@
 /**
- * Check if `array` is not `empty`
+ * Check if `array` is `empty`
  *
  * @param array
  * @returns boolean
