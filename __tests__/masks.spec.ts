@@ -35,6 +35,14 @@ describe('brasilianTelephoneMask', () => {
     const result = brazilianTelephoneMask('11987654321')
     expect(result).toBe('(11) 98765-4321')
   })
+
+  test('should progressively mask partial input while typing', () => {
+    expect(brazilianTelephoneMask('1')).toBe('1')
+    expect(brazilianTelephoneMask('11')).toBe('11')
+    expect(brazilianTelephoneMask('112')).toBe('(11) 2')
+    expect(brazilianTelephoneMask('1123456')).toBe('(11) 2345-6')
+    expect(brazilianTelephoneMask('1198765')).toBe('(11) 9876-5')
+  })
 })
 
 describe('globalCellphoneMask', () => {

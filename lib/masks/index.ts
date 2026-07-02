@@ -57,7 +57,9 @@ export function brazilianZipcodeMask(value: string): string {
  * Applies a mask to a Brazilian telephone number.
  *
  * This function formats the input value as a Brazilian telephone number, handling
- * both 8-digit and 9-digit phone numbers correctly.
+ * both 8-digit and 9-digit phone numbers correctly. Like `cpfOrCnpjMask`, it
+ * formats progressively as digits are typed — it does not require the full
+ * number to be present, so it can be used directly in an input's `onChange`.
  *
  * @param {string} value - The value to be formatted, containing only digits.
  * @returns {string} - The formatted telephone number.
@@ -68,14 +70,19 @@ export function brazilianZipcodeMask(value: string): string {
  *
  * // Apply telephone mask to 9-digit number
  * console.log(telephoneMask('11987654321')); // '(11) 98765-4321'
+ *
+ * // Partial input while typing
+ * console.log(telephoneMask('1198765')); // '(11) 9876-5'
  */
 export function brazilianTelephoneMask(value: string): string {
   value = value.replace(/\D/g, '')
 
   if (value.length <= 10) {
-    value = value.replace(/^(\d{2})(\d{4})(\d{4})$/, '($1) $2-$3')
+    value = value.replace(/^(\d{2})(\d)/, '($1) $2')
+    value = value.replace(/(\d{4})(\d)/, '$1-$2')
   } else {
-    value = value.replace(/^(\d{2})(\d{5})(\d{4})$/, '($1) $2-$3')
+    value = value.replace(/^(\d{2})(\d)/, '($1) $2')
+    value = value.replace(/(\d{5})(\d)/, '$1-$2')
   }
 
   return value
