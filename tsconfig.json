@@ -5,16 +5,8 @@
     "outDir": "dist",
     "declaration": true,
     "strict": true,
-    "types": [
-      "jest"
-    ]
+    "types": ["jest"]
   },
-  "include": [
-    "lib/**/*",
-    "__tests__/**/*.ts"
-  ],
-  "exclude": [
-    "node_modules",
-    "**/*.spec.ts"
-  ]
+  "include": ["lib/**/*", "__tests__/**/*.ts"],
+  "exclude": ["node_modules", "**/*.spec.ts"]
 }
