@@ -147,7 +147,7 @@ js-essential-kit. Adds a Migration section pointing existing consumers
 at the new package name.
 EOF
 )"
-````
+```
 
 ---
 
