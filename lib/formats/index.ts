@@ -30,21 +30,27 @@ export const formatReal = (amount: number | string = 0): string => {
 /**
  * Rounds the given number to the nearest integer.
  *
- * This function rounds the given number to the nearest integer. If the value is -1,
- * it returns 0.
+ * BREAKING CHANGE: prior versions treated the literal number `-1` as a
+ * sentinel meaning "no value" and returned `0` for it, silently discarding
+ * any real `-1` input. That sentinel has been removed — `-1` now rounds to
+ * `-1` like any other number. Pass `null` or `undefined` to explicitly
+ * request the "no value" fallback of `0`.
  *
- * @param {number} value - The number to be rounded.
- * @returns {number} - The rounded number or 0 if the input is -1.
+ * @param {number | null} [value] - The number to be rounded.
+ * @returns {number} - The rounded number, or 0 if `value` is `null`/`undefined`.
  *
  * @example
  * // Round a number
  * console.log(formatRound(4.567)); // 5
  *
- * // Handle special case of -1
- * console.log(formatRound(-1)); // 0
+ * // No value
+ * console.log(formatRound(null)); // 0
+ *
+ * // A real -1 is no longer zeroed out
+ * console.log(formatRound(-1)); // -1
  */
-export const formatRound = (value: number): number => {
-  if (value === -1) {
+export const formatRound = (value?: number | null): number => {
+  if (value == null) {
     return 0
   }
 
@@ -54,21 +60,27 @@ export const formatRound = (value: number): number => {
 /**
  * Formats the given number to a string with two decimal places.
  *
- * This function formats the given number to a string with two decimal places, replacing
- * the decimal point with a comma. If the value is -1, it returns "0,00".
+ * BREAKING CHANGE: prior versions treated the literal number `-1` as a
+ * sentinel meaning "no value" and returned `"0,00"` for it, silently
+ * discarding any real `-1` input. That sentinel has been removed — `-1`
+ * now formats as `"-1,00"` like any other number. Pass `null` or
+ * `undefined` to explicitly request the "no value" fallback of `"0,00"`.
  *
- * @param {number} value - The number to be formatted.
+ * @param {number | null} [value] - The number to be formatted.
  * @returns {string} - The formatted number as a string with two decimal places.
  *
  * @example
  * // Format a number to two decimal places
  * console.log(formatDecimal(1234.56)); // "1234,56"
  *
- * // Handle special case of -1
- * console.log(formatDecimal(-1)); // "0,00"
+ * // No value
+ * console.log(formatDecimal(null)); // "0,00"
+ *
+ * // A real -1 is no longer zeroed out
+ * console.log(formatDecimal(-1)); // "-1,00"
  */
-export const formatDecimal = (value: number): string => {
-  if (value === -1) {
+export const formatDecimal = (value?: number | null): string => {
+  if (value == null) {
     return '0,00'
   }
 

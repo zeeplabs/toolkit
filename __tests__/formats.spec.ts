@@ -32,8 +32,16 @@ describe('formatRound', () => {
     expect(formatRound(4.3)).toBe(4)
   })
 
-  test('Handle special case of -1', () => {
-    expect(formatRound(-1)).toBe(0)
+  test('A real -1 is rounded as-is, not zeroed out', () => {
+    expect(formatRound(-1)).toBe(-1)
+  })
+
+  test('Handle null as "no value"', () => {
+    expect(formatRound(null)).toBe(0)
+  })
+
+  test('Handle undefined as "no value"', () => {
+    expect(formatRound(undefined)).toBe(0)
   })
 
   test('Round zero', () => {
@@ -58,8 +66,16 @@ describe('formatDecimal', () => {
     expect(formatDecimal(1234.5)).toBe('1234,50')
   })
 
-  test('Handle special case of -1', () => {
-    expect(formatDecimal(-1)).toBe('0,00')
+  test('A real -1 is formatted as-is, not zeroed out', () => {
+    expect(formatDecimal(-1)).toBe('-1,00')
+  })
+
+  test('Handle null as "no value"', () => {
+    expect(formatDecimal(null)).toBe('0,00')
+  })
+
+  test('Handle undefined as "no value"', () => {
+    expect(formatDecimal(undefined)).toBe('0,00')
   })
 
   test('Handle zero input', () => {
