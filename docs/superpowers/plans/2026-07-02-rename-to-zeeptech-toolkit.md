@@ -23,9 +23,11 @@
 ### Task 1: Update package.json identity
 
 **Files:**
+
 - Modify: `package.json`
 
 **Interfaces:**
+
 - Consumes: none (first task).
 - Produces: `package.json` with `name: "@zeeptech/toolkit"`, `version: "1.0.0"`, `repository.url` and `bugs.url` pointing at `zeeplabs/toolkit`. Later tasks (2, 3) reference these same three values — keep them consistent.
 
@@ -79,9 +81,11 @@ EOF
 ### Task 2: Update README package references and add migration note
 
 **Files:**
+
 - Modify: `README.md`
 
 **Interfaces:**
+
 - Consumes: the new package name `@zeeptech/toolkit` from Task 1.
 - Produces: a `README.md` with zero remaining references to installing or importing from `js-essential-kit`.
 
@@ -106,7 +110,7 @@ Insert this block immediately after the `# Utility JavaScript Functions Library 
 
 Add a `## Migration` section right before `## Getting Started ✈️`:
 
-```markdown
+````markdown
 ## Migration
 
 If you currently depend on `js-essential-kit`, switch to `@zeeptech/toolkit`:
@@ -115,6 +119,7 @@ If you currently depend on `js-essential-kit`, switch to `@zeeptech/toolkit`:
 npm uninstall js-essential-kit
 npm install @zeeptech/toolkit
 ```
+````
 
 No code changes beyond the package specifier — every named export (`calculateAge`, `cpfOrCnpjMask`, etc.) has the same name and signature. Only the string in your `import`/`require` changes:
 
@@ -124,8 +129,6 @@ No code changes beyond the package specifier — every named export (`calculateA
 ```
 
 `js-essential-kit` is deprecated on npm and will not receive further updates.
-
-```
 
 - [ ] **Step 4: Verify formatting**
 
@@ -144,16 +147,18 @@ js-essential-kit. Adds a Migration section pointing existing consumers
 at the new package name.
 EOF
 )"
-```
+````
 
 ---
 
 ### Task 3: Fix stale scope/remote references in the publish workflow
 
 **Files:**
+
 - Modify: `.github/workflows/publish.yml`
 
 **Interfaces:**
+
 - Consumes: the new package/repo names from Tasks 1 and 4 (`@zeeptech/toolkit`, `zeeplabs/toolkit`).
 - Produces: a publish workflow that pushes the version-bump commit to the correct repository and configures the correct npm scope — this task fixes a **pre-existing bug** (the workflow currently points at `@iorder-tech` scope and pushes to `github.com/iorder-tech/js-helper-kit.git`, neither of which is this repository), not something this rename introduces.
 
@@ -162,21 +167,21 @@ EOF
 In `.github/workflows/publish.yml`, change:
 
 ```yaml
-      - uses: actions/setup-node@v6
-        with:
-          node-version-file: '.nvmrc'
-          registry-url: 'https://registry.npmjs.org'
-          scope: '@iorder-tech'
+- uses: actions/setup-node@v6
+  with:
+    node-version-file: '.nvmrc'
+    registry-url: 'https://registry.npmjs.org'
+    scope: '@iorder-tech'
 ```
 
 to:
 
 ```yaml
-      - uses: actions/setup-node@v6
-        with:
-          node-version-file: '.nvmrc'
-          registry-url: 'https://registry.npmjs.org'
-          scope: '@zeeptech'
+- uses: actions/setup-node@v6
+  with:
+    node-version-file: '.nvmrc'
+    registry-url: 'https://registry.npmjs.org'
+    scope: '@zeeptech'
 ```
 
 - [ ] **Step 2: Fix the git remote used for the version-bump push**
@@ -184,13 +189,13 @@ to:
 Change:
 
 ```yaml
-          git remote set-url origin https://x-access-token:${{ secrets.GIT_TOKEN }}@github.com/iorder-tech/js-helper-kit.git
+git remote set-url origin https://x-access-token:${{ secrets.GIT_TOKEN }}@github.com/iorder-tech/js-helper-kit.git
 ```
 
 to:
 
 ```yaml
-          git remote set-url origin https://x-access-token:${{ secrets.GIT_TOKEN }}@github.com/zeeplabs/toolkit.git
+git remote set-url origin https://x-access-token:${{ secrets.GIT_TOKEN }}@github.com/zeeplabs/toolkit.git
 ```
 
 - [ ] **Step 3: Validate the YAML is well-formed**
@@ -222,6 +227,7 @@ EOF
 **Files:** none (GitHub API + local git config only)
 
 **Interfaces:**
+
 - Consumes: target name `toolkit` from Global Constraints.
 - Produces: repository accessible at `zeeplabs/toolkit`, with `zeeplabs/js-essential-kit` automatically redirecting (GitHub's built-in behavior for renamed repos). Local git remote updated to match.
 
@@ -256,6 +262,7 @@ Expected: push succeeds against the new remote URL (no separate commit needed �
 **Files:** none (triggers existing CI workflow)
 
 **Interfaces:**
+
 - Consumes: `publish.yml` from Task 3, version `1.0.0` from Task 1.
 - Produces: `@zeeptech/toolkit@1.0.0` live on the public npm registry.
 
@@ -286,6 +293,7 @@ Expected: `1.0.0`
 **Files:** none (npm registry metadata only)
 
 **Interfaces:**
+
 - Consumes: nothing from prior tasks except confirmation that Task 5 succeeded (don't deprecate the old package before the new one is confirmed live — that would leave consumers with no working install target for a window of time).
 - Produces: `js-essential-kit` on npm shows a deprecation warning on install, pointing at `@zeeptech/toolkit`.
 
