@@ -134,6 +134,18 @@ describe('birthdateIs18Plus', () => {
   test('disallow minors', () => {
     expect(birthdateIs18Plus('2010-01-01', false)).toBe(false)
   })
+
+  test('rejects a birthdate with an out-of-range day (rollover)', () => {
+    expect(birthdateIs18Plus('31/02/2000', false)).toBe(false)
+  })
+
+  test('rejects a birthdate with non-numeric parts', () => {
+    expect(birthdateIs18Plus('aa/bb/cccc', false)).toBe(false)
+  })
+
+  test('rejects an unrecognized format', () => {
+    expect(birthdateIs18Plus('2000.01.01', false)).toBe(false)
+  })
 })
 
 describe('passwordStrongValidator', () => {

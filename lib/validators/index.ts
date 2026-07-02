@@ -259,6 +259,10 @@ export function brazilianTelephoneValidator(telephone: string): boolean {
  * This function validates the given birthdate string and checks if the age is 18 or older,
  * considering the current date. It supports birthdate formats 'YYYY-MM-DD' and 'DD/MM/YYYY'.
  *
+ * This function never throws. Any unparseable or invalid birthdate (wrong
+ * separator, non-numeric parts, or an out-of-range day/month such as
+ * '31/02/2000') returns `false`.
+ *
  * @param {string} birthday - The birthdate string in 'YYYY-MM-DD' or 'DD/MM/YYYY' format.
  * @param {boolean} allowMinors - Flag to allow minors (under 18).
  * @returns {boolean} - True if the age is 18 or older, otherwise false.
@@ -269,6 +273,9 @@ export function brazilianTelephoneValidator(telephone: string): boolean {
  *
  * // Check if a birthdate is 18 or older in 'DD/MM/YYYY' format
  * console.log(birthdateIs18Plus('01/01/2000', false)); // true or false depending on the current date
+ *
+ * // Invalid date
+ * console.log(birthdateIs18Plus('31/02/2000', false)); // false
  */
 export const birthdateIs18Plus = (
   birthday: string,
@@ -287,8 +294,27 @@ export const birthdateIs18Plus = (
     return false
   }
 
-  const today = new Date()
+  if (
+    !Number.isInteger(day) ||
+    !Number.isInteger(month) ||
+    !Number.isInteger(year)
+  ) {
+    return false
+  }
+
   const birthDate = new Date(year, month - 1, day)
+
+  // Date rolls over invalid components (e.g. 31/02) instead of throwing —
+  // reject anything that doesn't round-trip back to the same day/month/year.
+  if (
+    birthDate.getFullYear() !== year ||
+    birthDate.getMonth() !== month - 1 ||
+    birthDate.getDate() !== day
+  ) {
+    return false
+  }
+
+  const today = new Date()
   const age = today.getFullYear() - birthDate.getFullYear()
   const monthDifference = today.getMonth() - birthDate.getMonth()
   const dayDifference = today.getDate() - birthDate.getDate()

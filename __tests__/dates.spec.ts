@@ -10,6 +10,14 @@ describe('calculateAge', () => {
     const birthDateString = '1990-01-01'
     expect(calculateAge(birthDateString)).toBe(34)
   })
+
+  test('Returns NaN for an unparseable date string', () => {
+    expect(calculateAge('not-a-date')).toBeNaN()
+  })
+
+  test('Returns NaN for an invalid Date object', () => {
+    expect(calculateAge(new Date('invalid'))).toBeNaN()
+  })
 })
 
 describe('convertDateFormat', () => {

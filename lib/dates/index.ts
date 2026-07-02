@@ -4,8 +4,11 @@
  * This function accepts a birth date in the form of a Date object or a string,
  * converts it to a Date object if necessary, and calculates the age in years.
  *
+ * This function never throws. If `birthDate` cannot be parsed into a valid
+ * date, it returns `NaN` instead of a number of years.
+ *
  * @param {Date | string} birthDate - The birth date of the person.
- * @returns {number} - The age of the person in years.
+ * @returns {number} - The age of the person in years, or `NaN` if `birthDate` is invalid.
  *
  * @example
  * // Calculate age from Date object
@@ -13,10 +16,17 @@
  *
  * // Calculate age from string
  * console.log(calculateAge('1990-01-01')); // e.g., 34
+ *
+ * // Invalid input
+ * console.log(calculateAge('not-a-date')); // NaN
  */
 export function calculateAge(birthDate: Date | string): number {
   const dateOfBirth =
     typeof birthDate === 'string' ? new Date(birthDate) : birthDate
+
+  if (isNaN(dateOfBirth.getTime())) {
+    return NaN
+  }
 
   const today = new Date()
 
