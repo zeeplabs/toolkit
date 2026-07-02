@@ -8,13 +8,13 @@ Objetivo do dono do projeto: reposicionar a lib como biblioteca central de funç
 
 ## Decisões
 
-| Decisão | Escolha | Motivo |
-|---|---|---|
-| Escopo npm | `@zeeptech` | Já é conta/org do dono no npm (confirmado: mantém `@zeeptech/orbit-client`). Escopo não registrado sob `@zeeplabs`, mas `@zeeptech` já existe e pertence ao dono. |
-| Nome do pacote | `@zeeptech/toolkit` | Estilo descritivo direto, comunica o propósito sem precisar de contexto externo. Sem prefixo `ts-`/`typescript-`: redundante dentro de um escopo próprio (sem concorrência de nome a resolver) e potencialmente enganoso — a lib compila pra JS puro e roda em projetos sem TypeScript, então "ts-" sugeriria incorretamente uso exclusivo TS. |
-| Visibilidade | Pública | Escopo não implica privado. Pacote privado exigiria npm Org paga ou GitHub Packages com auth por projeto consumidor — fricção desnecessária sem ganho de confidencialidade real (não há segredo de negócio no código). |
-| Escopo do conteúdo (BR-specific vs genérico) | Mantém tudo em um pacote só | Decisão consciente de não separar agora. Trade-off aceito: bundle inclui código/dados que nem todo consumidor usa (mitigado parcialmente por `sideEffects: false`, já aplicado). Reavaliar split futuro se o pacote crescer muito ou se surgir um consumidor que precise só da parte genérica. |
-| Nome do repositório GitHub | Renomear `zeeplabs/js-essential-kit` → `zeeplabs/toolkit` | Repo continua na org `zeeplabs` (só o escopo npm é `@zeeptech` — já eram coisas diferentes antes do rename). Nome do repo passa a bater com o nome do pacote (`toolkit`), sem o prefixo de escopo (repos GitHub não têm conceito de scope). GitHub redireciona automaticamente o nome antigo — não quebra clones/links existentes. |
+| Decisão                                      | Escolha                                                   | Motivo                                                                                                                                                                                                                                                                                                                                         |
+| -------------------------------------------- | --------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Escopo npm                                   | `@zeeptech`                                               | Já é conta/org do dono no npm (confirmado: mantém `@zeeptech/orbit-client`). Escopo não registrado sob `@zeeplabs`, mas `@zeeptech` já existe e pertence ao dono.                                                                                                                                                                              |
+| Nome do pacote                               | `@zeeptech/toolkit`                                       | Estilo descritivo direto, comunica o propósito sem precisar de contexto externo. Sem prefixo `ts-`/`typescript-`: redundante dentro de um escopo próprio (sem concorrência de nome a resolver) e potencialmente enganoso — a lib compila pra JS puro e roda em projetos sem TypeScript, então "ts-" sugeriria incorretamente uso exclusivo TS. |
+| Visibilidade                                 | Pública                                                   | Escopo não implica privado. Pacote privado exigiria npm Org paga ou GitHub Packages com auth por projeto consumidor — fricção desnecessária sem ganho de confidencialidade real (não há segredo de negócio no código).                                                                                                                         |
+| Escopo do conteúdo (BR-specific vs genérico) | Mantém tudo em um pacote só                               | Decisão consciente de não separar agora. Trade-off aceito: bundle inclui código/dados que nem todo consumidor usa (mitigado parcialmente por `sideEffects: false`, já aplicado). Reavaliar split futuro se o pacote crescer muito ou se surgir um consumidor que precise só da parte genérica.                                                 |
+| Nome do repositório GitHub                   | Renomear `zeeplabs/js-essential-kit` → `zeeplabs/toolkit` | Repo continua na org `zeeplabs` (só o escopo npm é `@zeeptech` — já eram coisas diferentes antes do rename). Nome do repo passa a bater com o nome do pacote (`toolkit`), sem o prefixo de escopo (repos GitHub não têm conceito de scope). GitHub redireciona automaticamente o nome antigo — não quebra clones/links existentes.             |
 
 ## O que muda
 
@@ -37,6 +37,7 @@ O dono usa esta lib em vários projetos próprios. Escopo desta spec cobre só o
 ## Fora de escopo / próximos passos (não fazer agora)
 
 Da análise de "lib profissional" anterior, itens que continuam pendentes e não fazem parte deste rename:
+
 - Disciplina de release (changesets/semantic-release, CHANGELOG automático).
 - Build dual ESM+CJS + `exports` map / subpath exports.
 - Zerar alertas de segurança abertos no Dependabot (7 hoje: 3 high, 4 medium).
