@@ -310,37 +310,64 @@ export interface PasswordPayload {
   errors?: string[]
 }
 
+export interface PasswordValidatorOptions {
+  requireSpecialChar?: boolean
+  maxLength?: number
+}
+
+const DEFAULT_PASSWORD_MAX_LENGTH = 128
+
 /**
  * Validates a password based on specific security criteria.
  *
  * This function checks if the given password meets the following criteria:
  * - At least 8 characters long
+ * - No longer than `maxLength` (defaults to 128), to avoid excessive-length
+ *   inputs being passed downstream to hashing functions
  * - Contains at least one number
  * - Contains at least one uppercase letter
  * - Contains at least one lowercase letter
+ * - Contains at least one special character, when `requireSpecialChar` is enabled
  *
  * @param {string} password - The password string to be validated.
+ * @param {PasswordValidatorOptions} [options] - Optional validation configuration.
+ * @param {boolean} [options.requireSpecialChar=false] - Whether a special character is required.
+ * @param {number} [options.maxLength=128] - Maximum allowed password length.
  * @returns {PasswordPayload} - An object indicating if the password is valid and any validation errors.
  *
  * @example
  * // Valid password
- * console.log(passwordValidator('StrongP@ssword1')); // { passwordIsValid: true }
+ * console.log(passwordStrongValidator('StrongP@ssword1')); // { passwordIsValid: true }
  *
  * // Invalid password
- * console.log(passwordValidator('weak')); // { passwordIsValid: false, errors: ['passwordLength', 'noNumber', 'noUpperCaseLetter'] }
+ * console.log(passwordStrongValidator('weak')); // { passwordIsValid: false, errors: ['passwordLength', 'noNumber', 'noUpperCaseLetter'] }
+ *
+ * // Requiring a special character
+ * console.log(passwordStrongValidator('StrongPassword1', { requireSpecialChar: true }));
+ * // { passwordIsValid: false, errors: ['noSpecialChar'] }
  */
-export function passwordStrongValidator(password: string): PasswordPayload {
+export function passwordStrongValidator(
+  password: string,
+  options?: PasswordValidatorOptions
+): PasswordPayload {
+  const requireSpecialChar = options?.requireSpecialChar ?? false
+  const maxLength = options?.maxLength ?? DEFAULT_PASSWORD_MAX_LENGTH
+
   const passwordLength = password.length >= 8
+  const passwordExceedsMaxLength = password.length > maxLength
   const passwordHasNumber = /(?=.*[0-9])/.test(password)
   const passwordHasUpperCaseLetter = /(?=.*[A-Z])/.test(password)
   const passwordHasLowerCaseLetter = /(?=.*[a-z])/.test(password)
+  const passwordHasSpecialChar = /(?=.*[^A-Za-z0-9])/.test(password)
 
   const errors: string[] = []
 
   if (!passwordLength) errors.push('passwordLength')
+  if (passwordExceedsMaxLength) errors.push('passwordTooLong')
   if (!passwordHasNumber) errors.push('noNumber')
   if (!passwordHasUpperCaseLetter) errors.push('noUpperCaseLetter')
   if (!passwordHasLowerCaseLetter) errors.push('noLowerCaseLetter')
+  if (requireSpecialChar && !passwordHasSpecialChar) errors.push('noSpecialChar')
 
   if (errors.length) {
     return { passwordIsValid: false, errors }

@@ -142,4 +142,44 @@ describe('passwordStrongValidator', () => {
       passwordIsValid: true,
     })
   })
+
+  test('special character not required by default', () => {
+    expect(passwordStrongValidator('StrongPassword1')).toEqual({
+      passwordIsValid: true,
+    })
+  })
+
+  test('requires special character when requireSpecialChar is enabled', () => {
+    expect(
+      passwordStrongValidator('StrongPassword1', { requireSpecialChar: true })
+    ).toEqual({
+      passwordIsValid: false,
+      errors: ['noSpecialChar'],
+    })
+  })
+
+  test('accepts special character when requireSpecialChar is enabled', () => {
+    expect(
+      passwordStrongValidator('StrongP@ssword1', { requireSpecialChar: true })
+    ).toEqual({
+      passwordIsValid: true,
+    })
+  })
+
+  test('rejects password longer than default max length', () => {
+    const tooLong = `Aa1${'a'.repeat(126)}`
+    expect(passwordStrongValidator(tooLong)).toEqual({
+      passwordIsValid: false,
+      errors: ['passwordTooLong'],
+    })
+  })
+
+  test('rejects password longer than custom max length', () => {
+    expect(
+      passwordStrongValidator('StrongP@ssword1', { maxLength: 10 })
+    ).toEqual({
+      passwordIsValid: false,
+      errors: ['passwordTooLong'],
+    })
+  })
 })
