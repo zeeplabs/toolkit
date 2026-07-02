@@ -1,14 +1,21 @@
 import { calculateAge, convertDateFormat } from '../lib/dates'
 
 describe('calculateAge', () => {
+  const AGE_YEARS = 34
+  const today = new Date()
+  const birthDate = new Date(
+    today.getFullYear() - AGE_YEARS,
+    today.getMonth(),
+    today.getDate()
+  )
+
   test('Calculate age from Date object', () => {
-    const birthDate = new Date(1990, 0, 1)
-    expect(calculateAge(birthDate)).toBe(34)
+    expect(calculateAge(birthDate)).toBe(AGE_YEARS)
   })
 
   test('Calculate age from string', () => {
-    const birthDateString = '1990-01-01'
-    expect(calculateAge(birthDateString)).toBe(34)
+    const birthDateString = birthDate.toISOString().slice(0, 10)
+    expect(calculateAge(birthDateString)).toBe(AGE_YEARS)
   })
 
   test('Returns NaN for an unparseable date string', () => {
