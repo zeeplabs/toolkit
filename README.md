@@ -1,5 +1,7 @@
 # Utility JavaScript Functions Library 📚
 
+> **Renamed:** this package was previously published as `js-essential-kit`. It is now `@zeeptech/toolkit`. See [Migration](#migration) below.
+
 Welcome to the Utility JavaScript Functions Library! This library provides a comprehensive set of utility functions for various common tasks, including date calculations, formatting, masking, normalizing data, and validation. Each function is designed to make your development process easier and more efficient.
 
 ## Table of Contents
@@ -11,25 +13,44 @@ Welcome to the Utility JavaScript Functions Library! This library provides a com
 - [Validators](#validators)
 - [Utils](#utils)
 - [Others](#others)
+- [Migration](#migration)
+
+## Migration
+
+If you currently depend on `js-essential-kit`, switch to `@zeeptech/toolkit`:
+
+```bash
+npm uninstall js-essential-kit
+npm install @zeeptech/toolkit
+```
+
+No code changes beyond the package specifier — every named export (`calculateAge`, `cpfOrCnpjMask`, etc.) has the same name and signature. Only the string in your `import`/`require` changes:
+
+```diff
+- import { calculateAge } from 'js-essential-kit'
++ import { calculateAge } from '@zeeptech/toolkit'
+```
+
+`js-essential-kit` is deprecated on npm and will not receive further updates.
 
 ## Getting Started ✈️
 
 if using npm:
 
 ```
-$ npm install js-essential-kit --save
+$ npm install @zeeptech/toolkit --save
 ```
 
 if using yarn:
 
 ```
-$ yarn add js-essential-kit
+$ yarn add @zeeptech/toolkit
 ```
 
 if using pnpm:
 
 ```
-$ pnpm install js-essential-kit
+$ pnpm install @zeeptech/toolkit
 ```
 
 ## Dates
@@ -39,7 +60,7 @@ $ pnpm install js-essential-kit
 - Calculates the age based on the given birth date.
 
 ```js
-import { calculateAge } from 'js-essential-kit'
+import { calculateAge } from '@zeeptech/toolkit'
 
 calculateAge('2000-01-01') // Ex: 23 anos
 ```
@@ -49,7 +70,7 @@ calculateAge('2000-01-01') // Ex: 23 anos
 - Converts a date string to a different format.
 
 ```js
-import { convertDateFormat } from 'js-essential-kit'
+import { convertDateFormat } from '@zeeptech/toolkit'
 
 convertDateFormat('2024-06-26') // Ex: '26/06/2024'
 convertDateFormat('26/06/2024') // Ex: '2024-06-26'
@@ -64,7 +85,7 @@ convertDateFormat('26/06/2024') // Ex: '2024-06-26'
 - Formats a number or string as Brazilian Real currency.
 
 ```js
-import { formatReal } from 'js-essential-kit'
+import { formatReal } from '@zeeptech/toolkit'
 
 formatReal(1234.56) // Ex: 'R$ 1.234,56'
 ```
@@ -74,7 +95,7 @@ formatReal(1234.56) // Ex: 'R$ 1.234,56'
 - Rounds a number to the nearest integer.
 
 ```js
-import { formatRound } from 'js-essential-kit'
+import { formatRound } from '@zeeptech/toolkit'
 
 formatRound(4.567) // Ex: 5
 ```
@@ -84,7 +105,7 @@ formatRound(4.567) // Ex: 5
 - Formats a number to two decimal places.
 
 ```js
-import { formatDecimal } from 'js-essential-kit'
+import { formatDecimal } from '@zeeptech/toolkit'
 
 formatDecimal(1234.56) // Ex: '1234,56'
 ```
@@ -96,7 +117,7 @@ formatDecimal(1234.56) // Ex: '1234,56'
 - Applies CPF or CNPJ mask to a string.
 
 ```js
-import { cpfOrCnpjMask } from 'js-essential-kit'
+import { cpfOrCnpjMask } from '@zeeptech/toolkit'
 
 cpfOrCnpjMask('12345678909')) // Ex CPF: '123.456.789-09'
 cpfOrCnpjMask('68451802000151')) // EX CNPJ: '68.451.802/0001-51'
@@ -107,7 +128,7 @@ cpfOrCnpjMask('68451802000151')) // EX CNPJ: '68.451.802/0001-51'
 - Applies Brazilian zipcode mask to a string.
 
 ```js
-import { brazilianZipcodeMask } from 'js-essential-kit'
+import { brazilianZipcodeMask } from '@zeeptech/toolkit'
 
 brazilianZipcodeMask('12345678') // Ex: '12345-678'
 ```
@@ -117,7 +138,7 @@ brazilianZipcodeMask('12345678') // Ex: '12345-678'
 - Applies Brazilian telephone mask to a string.
 
 ```js
-import { brazilianTelephoneMask } from 'js-essential-kit'
+import { brazilianTelephoneMask } from '@zeeptech/toolkit'
 
 brazilianTelephoneMask('21987654321') // Ex: '(21) 98765-4321'
 ```
@@ -127,7 +148,7 @@ brazilianTelephoneMask('21987654321') // Ex: '(21) 98765-4321'
 - Applies a global cellphone mask based on country.
 
 ```js
-import { globalCellphoneMask } from 'js-essential-kit'
+import { globalCellphoneMask } from '@zeeptech/toolkit'
 
 globalCellphoneMask('US', '1234567890') // Ex: '+1 (123) 456-7890'
 ```
@@ -137,7 +158,7 @@ globalCellphoneMask('US', '1234567890') // Ex: '+1 (123) 456-7890'
 - Clears any mask from a string.
 
 ```js
-import { clearMask } from 'js-essential-kit'
+import { clearMask } from '@zeeptech/toolkit'
 
 clearMask('123.456.789-09')) // Ex: '12345678909'
 ```
@@ -149,7 +170,7 @@ clearMask('123.456.789-09')) // Ex: '12345678909'
 - Normalizes a name string.
 
 ```js
-import { normalizeName } from 'js-essential-kit'
+import { normalizeName } from '@zeeptech/toolkit'
 
 normalizeName(' João da Silva ') // Ex: 'João Da Silva'
 ```
@@ -159,7 +180,7 @@ normalizeName(' João da Silva ') // Ex: 'João Da Silva'
 - Converts an array of strings to a single string with each item in quotes.
 
 ```js
-import { arrayToStringWithQuotes } from 'js-essential-kit'
+import { arrayToStringWithQuotes } from '@zeeptech/toolkit'
 
 arrayToStringWithQuotes(['apple', 'banana', 'cherry']) // Ex: '"apple", "banana", "cherry"'
 ```
@@ -171,7 +192,7 @@ arrayToStringWithQuotes(['apple', 'banana', 'cherry']) // Ex: '"apple", "banana"
 - Checks if array is empty.
 
 ```js
-import { isEmpty } from 'js-essential-kit'
+import { isEmpty } from '@zeeptech/toolkit'
 
 isEmpty([]) // Ex: true
 ```
@@ -181,7 +202,7 @@ isEmpty([]) // Ex: true
 - Checks if array is not empty.
 
 ```js
-import { isNotEmpty } from 'js-essential-kit'
+import { isNotEmpty } from '@zeeptech/toolkit'
 
 isNotEmpty(['apple', 'banana', 'cherry']) // Ex: true
 ```
@@ -193,7 +214,7 @@ isNotEmpty(['apple', 'banana', 'cherry']) // Ex: true
 - Encodes a string in base64.
 
 ```js
-import { base64Encoding } from 'js-essential-kit'
+import { base64Encoding } from '@zeeptech/toolkit'
 
 base64Encoding('Hello, World!') // Ex: 'SGVsbG8sIFdvcmxkIQ=='
 ```
@@ -203,7 +224,7 @@ base64Encoding('Hello, World!') // Ex: 'SGVsbG8sIFdvcmxkIQ=='
 - Decodes a base64 string.
 
 ```js
-import { base64Decoding } from 'js-essential-kit'
+import { base64Decoding } from '@zeeptech/toolkit'
 
 base64Decoding('SGVsbG8sIFdvcmxkIQ==') // Ex: 'Hello, World!'
 ```
@@ -214,7 +235,7 @@ base64Decoding('SGVsbG8sIFdvcmxkIQ==') // Ex: 'Hello, World!'
 - ⚠️ Uses `Math.random()` — **not cryptographically secure**. Do not use for tokens, verification codes, or temporary passwords.
 
 ```js
-import { generateRandomNumber } from 'js-essential-kit'
+import { generateRandomNumber } from '@zeeptech/toolkit'
 
 generateRandomNumber(1, 10) // Ex: 7
 ```
@@ -225,7 +246,7 @@ generateRandomNumber(1, 10) // Ex: 7
 - ⚠️ Uses `Math.random()` — **not cryptographically secure**. Do not use for tokens, verification codes, or temporary passwords.
 
 ```js
-import { generateRandomString } from 'js-essential-kit'
+import { generateRandomString } from '@zeeptech/toolkit'
 
 generateRandomString(5, 10) // Ex: 'aBcDeF'
 ```
@@ -235,7 +256,7 @@ generateRandomString(5, 10) // Ex: 'aBcDeF'
 - Generates an array of numbers from 0 to quantity-1.
 
 ```js
-import { generateRange } from 'js-essential-kit'
+import { generateRange } from '@zeeptech/toolkit'
 
 generateRange(5) // Ex: [1, 2, 3, 4, 5]
 ```
@@ -245,7 +266,7 @@ generateRange(5) // Ex: [1, 2, 3, 4, 5]
 - Creates a URL-friendly slug from a string.
 
 ```js
-import { createSlug } from 'js-essential-kit'
+import { createSlug } from '@zeeptech/toolkit'
 
 createSlug('Olá Mundo!') // 'ola-mundo'
 ```
@@ -255,7 +276,7 @@ createSlug('Olá Mundo!') // 'ola-mundo'
 - Limits the length of a string, optionally adding ellipsis.
 
 ```js
-import { limitString } from 'js-essential-kit'
+import { limitString } from '@zeeptech/toolkit'
 
 // Limits a string to the specified length, optionally adding an ellipsis.
 limitString('Hello World', 10, true)) // Ex: 'Hello W...'
@@ -266,7 +287,7 @@ limitString('Hello World', 10, true)) // Ex: 'Hello W...'
 - Finds the lowest value in an option group.
 
 ```js
-import { findLowestValue } from 'js-essential-kit'
+import { findLowestValue } from '@zeeptech/toolkit'
 
 const options = {
   options: [{ value: '10' }, { value: '5' }, { value: '20' }],
@@ -280,7 +301,7 @@ findLowestValue(options) // Ex: { value: '5' }
 - Generates a set of time slots.
 
 ```js
-import { generateTimeSlots } from 'js-essential-kit'
+import { generateTimeSlots } from '@zeeptech/toolkit'
 
 generateTimeSlots()
 
@@ -297,7 +318,7 @@ generateTimeSlots()
 - Splits a full name into first and last name.
 
 ```js
-import { createFirstAndLastName } from 'js-essential-kit'
+import { createFirstAndLastName } from '@zeeptech/toolkit'
 
 createFirstAndLastName('John Michael Doe') // Ex: 'John Michael'
 ```
@@ -307,7 +328,7 @@ createFirstAndLastName('John Michael Doe') // Ex: 'John Michael'
 - Calculates the distance in kilometers.
 
 ```js
-import { calculateDistanceInKm } from 'js-essential-kit'
+import { calculateDistanceInKm } from '@zeeptech/toolkit'
 
 calculateDistanceInKm(1500) // Ex: 1.5
 ```
@@ -317,7 +338,7 @@ calculateDistanceInKm(1500) // Ex: 1.5
 - Checks if an object is empty.
 
 ```js
-import { isEmptyObject } from 'js-essential-kit'
+import { isEmptyObject } from '@zeeptech/toolkit'
 
 isEmptyObject({}) // Ex: true
 ```
@@ -327,7 +348,7 @@ isEmptyObject({}) // Ex: true
 - Rounds a number to two decimal places.
 
 ```js
-import { roundToTwo } from 'js-essential-kit'
+import { roundToTwo } from '@zeeptech/toolkit'
 
 roundToTwo(123.456) // Ex: 123.46
 ```
@@ -337,7 +358,7 @@ roundToTwo(123.456) // Ex: 123.46
 - Finds the maximum value in an array.
 
 ```js
-import { findMax } from 'js-essential-kit'
+import { findMax } from '@zeeptech/toolkit'
 
 findMax([1, 2, 3, 4, 5]) // Ex: 5
 ```
@@ -347,7 +368,7 @@ findMax([1, 2, 3, 4, 5]) // Ex: 5
 - Finds the minimum value in an array.
 
 ```js
-import { findMin } from 'js-essential-kit'
+import { findMin } from '@zeeptech/toolkit'
 
 findMin([1, 2, 3, 4, 5]) // Ex: 1
 ```
@@ -357,7 +378,7 @@ findMin([1, 2, 3, 4, 5]) // Ex: 1
 - Removes duplicate values from an array.
 
 ```js
-import { removeDuplicates } from 'js-essential-kit'
+import { removeDuplicates } from '@zeeptech/toolkit'
 
 removeDuplicates([1, 2, 2, 3, 4, 4, 5]) // Ex: [1, 2, 3, 4, 5]
 ```
@@ -367,7 +388,7 @@ removeDuplicates([1, 2, 2, 3, 4, 4, 5]) // Ex: [1, 2, 3, 4, 5]
 - Capitalizes the first letter of each word in a string.
 
 ```js
-import { capitalizeWords } from 'js-essential-kit'
+import { capitalizeWords } from '@zeeptech/toolkit'
 
 capitalizeWords('hello world') // Ex: 'Hello World'
 ```
@@ -379,7 +400,7 @@ capitalizeWords('hello world') // Ex: 'Hello World'
 - Validates a Brazilian CPF.
 
 ```js
-import { brazilianCpfValidator } from 'js-essential-kit'
+import { brazilianCpfValidator } from '@zeeptech/toolkit'
 
 brazilianCpfValidator('123.456.789-09') // Ex: true ou false
 ```
@@ -389,7 +410,7 @@ brazilianCpfValidator('123.456.789-09') // Ex: true ou false
 - Validates a Brazilian CNPJ.
 
 ```js
-import { brazilianCnpjValidator } from 'js-essential-kit'
+import { brazilianCnpjValidator } from '@zeeptech/toolkit'
 
 brazilianCnpjValidator('12.345.678/0001-95') // Ex: true ou false
 ```
@@ -399,7 +420,7 @@ brazilianCnpjValidator('12.345.678/0001-95') // Ex: true ou false
 - Validates an email address.
 
 ```js
-import { emailIsValid } from 'js-essential-kit'
+import { emailIsValid } from '@zeeptech/toolkit'
 
 emailIsValid('example@example.com') // Ex: true ou false
 ```
@@ -409,7 +430,7 @@ emailIsValid('example@example.com') // Ex: true ou false
 - Validates a name string.
 
 ```js
-import { nameIsValid } from 'js-essential-kit'
+import { nameIsValid } from '@zeeptech/toolkit'
 
 nameIsValid('John Doe') // Ex: true ou false
 ```
@@ -419,7 +440,7 @@ nameIsValid('John Doe') // Ex: true ou false
 - Validates a full name string.
 
 ```js
-import { fullnameIsValid } from 'js-essential-kit'
+import { fullnameIsValid } from '@zeeptech/toolkit'
 
 fullnameIsValid('John Doe') // Ex: { valid: true, message: '' }
 fullnameIsValid('John  Doe') // Ex: { valid: false, message: 'No extra spaces allowed' }
@@ -430,7 +451,7 @@ fullnameIsValid('John  Doe') // Ex: { valid: false, message: 'No extra spaces al
 - Validates a name with last name.
 
 ```js
-import { validNameAndLastName } from 'js-essential-kit'
+import { validNameAndLastName } from '@zeeptech/toolkit'
 
 validNameAndLastName('John Doe') // Ex: true ou false
 ```
@@ -440,7 +461,7 @@ validNameAndLastName('John Doe') // Ex: true ou false
 - Validates a Brazilian telephone number.
 
 ```js
-import { brazilianTelephoneValidator } from 'js-essential-kit'
+import { brazilianTelephoneValidator } from '@zeeptech/toolkit'
 
 brazilianTelephoneValidator('(21) 98765-4321') // Ex: true ou false
 ```
@@ -450,7 +471,7 @@ brazilianTelephoneValidator('(21) 98765-4321') // Ex: true ou false
 - Checks if the birthdate is 18 years or older, with an option to allow minors.
 
 ```js
-import { birthdateIs18Plus } from 'js-essential-kit'
+import { birthdateIs18Plus } from '@zeeptech/toolkit'
 
 birthdateIs18Plus('2000-01-01', false)) // Ex: true ou false
 ```
@@ -460,7 +481,7 @@ birthdateIs18Plus('2000-01-01', false)) // Ex: true ou false
 - Validates the strength of a password.
 
 ```js
-import { passwordStrongValidator } from 'js-essential-kit'
+import { passwordStrongValidator } from '@zeeptech/toolkit'
 
 passwordStrongValidator('StrongP@ssword1')
 // Ex: { passwordIsValid: true }
