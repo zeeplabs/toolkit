@@ -20,7 +20,7 @@ jobs:
         with:
           node-version-file: '.nvmrc'
           registry-url: 'https://registry.npmjs.org'
-          scope: '@iorder-tech'
+          scope: '@zeeptech'
 
       - name: Configure Git
         run: |
@@ -36,7 +36,7 @@ jobs:
       - run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git remote set-url origin https://x-access-token:${{ secrets.GIT_TOKEN }}@github.com/iorder-tech/js-helper-kit.git
+          git remote set-url origin https://x-access-token:${{ secrets.GIT_TOKEN }}@github.com/zeeplabs/toolkit.git
           git push
 
       # Publish to npm
