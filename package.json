@@ -48,8 +48,7 @@
   "author": "Julio Augusto <julio@iorder.com.br>",
   "dependencies": {
     "@typescript-eslint/eslint-plugin": "^8.3.0",
-    "buffer": "^6.0.3",
-    "diacritic": "^0.0.2"
+    "buffer": "^6.0.3"
   },
   "devDependencies": {
     "@eslint/js": "^9.5.0",
