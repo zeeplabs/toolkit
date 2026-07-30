@@ -24,6 +24,34 @@ export function cpfMask(value: string): string {
 }
 
 /**
+ * Applies a CNPJ mask to a string.
+ *
+ * Formats the input as a CNPJ (xx.xxx.xxx/xxxx-xx). Accepts both the legacy all-numeric
+ * CNPJ and the alphanumeric format introduced by the Receita Federal (effective
+ * 2026-07-31): letters are allowed in the first 12 characters (root + order), the last two
+ * (check digits) stay numeric. Input is uppercased internally, so lowercase letters are
+ * accepted. Formats progressively as characters are typed — it does not require the full
+ * value to be present, so it can be used directly in an input's `onChange`.
+ *
+ * @param {string} value - The value to be formatted, containing digits and/or letters.
+ * @returns {string} - The formatted value with the CNPJ mask applied.
+ *
+ * @example
+ * console.log(cnpjMask('12345678000195')); // '12.345.678/0001-95'
+ * console.log(cnpjMask('12ABC34501DE35')); // '12.ABC.345/01DE-35'
+ */
+export function cnpjMask(value: string): string {
+  value = value.toUpperCase().replace(/[^0-9A-Z]/g, '')
+
+  value = value.replace(/^([0-9A-Z]{2})([0-9A-Z])/, '$1.$2')
+  value = value.replace(/^([0-9A-Z]{2})\.([0-9A-Z]{3})([0-9A-Z])/, '$1.$2.$3')
+  value = value.replace(/\.([0-9A-Z]{3})([0-9A-Z])/, '.$1/$2')
+  value = value.replace(/([0-9A-Z]{4})(\d)/, '$1-$2')
+
+  return value
+}
+
+/**
  * Applies a mask to a Brazilian CEP (Postal Code).
  *
  * This function formats the input value as a CEP (xxxxx-xxx) by removing any non-digit characters

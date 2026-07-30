@@ -122,6 +122,17 @@ import { cpfMask } from '@zeeptech/toolkit'
 cpfMask('12345678909') // Ex: '123.456.789-09'
 ```
 
+### CNPJ Mask
+
+- Applies a CNPJ mask to a string — accepts both the legacy all-numeric format and the alphanumeric format effective 2026-07-31.
+
+```js
+import { cnpjMask } from '@zeeptech/toolkit'
+
+cnpjMask('68451802000151') // Ex: '68.451.802/0001-51'
+cnpjMask('12ABC34501DE35') // Ex: '12.ABC.345/01DE-35'
+```
+
 ### Brazilian Zipcode Mask
 
 - Applies Brazilian zipcode mask to a string.

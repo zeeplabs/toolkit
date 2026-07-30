@@ -1,5 +1,6 @@
 import {
   cpfMask,
+  cnpjMask,
   brazilianZipcodeMask,
   brazilianTelephoneMask,
   globalCellphoneMask,
@@ -18,6 +19,40 @@ describe('cpfMask', () => {
     expect(cpfMask('1234')).toBe('123.4')
     expect(cpfMask('123456789')).toBe('123.456.789')
     expect(cpfMask('12345678909')).toBe('123.456.789-09')
+  })
+})
+
+describe('cnpjMask', () => {
+  test('should apply CNPJ mask to a numeric CNPJ', () => {
+    const result = cnpjMask('12345678000195')
+    expect(result).toBe('12.345.678/0001-95')
+  })
+
+  test('should apply CNPJ mask to an alphanumeric CNPJ', () => {
+    const result = cnpjMask('12ABC34501DE35')
+    expect(result).toBe('12.ABC.345/01DE-35')
+  })
+
+  test('should uppercase lowercase letters', () => {
+    const result = cnpjMask('12abc34501de35')
+    expect(result).toBe('12.ABC.345/01DE-35')
+  })
+
+  test('should progressively mask partial alphanumeric input while typing', () => {
+    expect(cnpjMask('1')).toBe('1')
+    expect(cnpjMask('12')).toBe('12')
+    expect(cnpjMask('12A')).toBe('12.A')
+    expect(cnpjMask('12AB')).toBe('12.AB')
+    expect(cnpjMask('12ABC')).toBe('12.ABC')
+    expect(cnpjMask('12ABC3')).toBe('12.ABC.3')
+    expect(cnpjMask('12ABC34')).toBe('12.ABC.34')
+    expect(cnpjMask('12ABC345')).toBe('12.ABC.345')
+    expect(cnpjMask('12ABC3450')).toBe('12.ABC.345/0')
+    expect(cnpjMask('12ABC34501')).toBe('12.ABC.345/01')
+    expect(cnpjMask('12ABC34501D')).toBe('12.ABC.345/01D')
+    expect(cnpjMask('12ABC34501DE')).toBe('12.ABC.345/01DE')
+    expect(cnpjMask('12ABC34501DE3')).toBe('12.ABC.345/01DE-3')
+    expect(cnpjMask('12ABC34501DE35')).toBe('12.ABC.345/01DE-35')
   })
 })
 
