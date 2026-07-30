@@ -18,10 +18,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v7
 
-      - uses: actions/setup-node@v6
+      - uses: actions/setup-node@v7
         with:
           node-version-file: '.nvmrc'
-          registry-url: 'https://registry.npmjs.org'
 
       - name: Install Yarn
         run: npm install -g yarn
@@ -44,10 +43,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v7
 
-      - uses: actions/setup-node@v6
+      - uses: actions/setup-node@v7
         with:
           node-version-file: '.nvmrc'
-          registry-url: 'https://registry.npmjs.org'
 
       - name: Install Yarn
         run: npm install -g yarn
