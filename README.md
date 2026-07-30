@@ -405,14 +405,15 @@ import { cpfValidator } from '@zeeptech/toolkit'
 cpfValidator('123.456.789-09') // Ex: true ou false
 ```
 
-### Brazilian CNPJ Validator
+### CNPJ Validator
 
-- Validates a Brazilian CNPJ.
+- Validates a Brazilian CNPJ — accepts both the legacy all-numeric format and the alphanumeric format effective 2026-07-31.
 
 ```js
-import { brazilianCnpjValidator } from '@zeeptech/toolkit'
+import { cnpjValidator } from '@zeeptech/toolkit'
 
-brazilianCnpjValidator('12.345.678/0001-95') // Ex: true ou false
+cnpjValidator('12.345.678/0001-95') // Ex: true ou false
+cnpjValidator('12.ABC.345/01DE-35') // Ex: true ou false
 ```
 
 ### Email Is Valid

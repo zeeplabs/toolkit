@@ -1,6 +1,6 @@
 import {
   cpfValidator,
-  brazilianCnpjValidator,
+  cnpjValidator,
   emailIsValid,
   nameIsValid,
   fullnameIsValid,
@@ -20,13 +20,37 @@ describe('cpfValidator', () => {
   })
 })
 
-describe('brazilianCnpjValidator', () => {
-  test('Valid CNPJ', () => {
-    expect(brazilianCnpjValidator('12.345.678/0001-95')).toBe(true)
+describe('cnpjValidator', () => {
+  test('Valid numeric CNPJ', () => {
+    expect(cnpjValidator('12.345.678/0001-95')).toBe(true)
   })
 
-  test('Invalid CNPJ', () => {
-    expect(brazilianCnpjValidator('12.345.678/0001-96')).toBe(false)
+  test('Invalid numeric CNPJ (wrong check digit)', () => {
+    expect(cnpjValidator('12.345.678/0001-96')).toBe(false)
+  })
+
+  test('Valid alphanumeric CNPJ', () => {
+    expect(cnpjValidator('12.ABC.345/01DE-35')).toBe(true)
+  })
+
+  test('Valid alphanumeric CNPJ, lowercase letters normalized', () => {
+    expect(cnpjValidator('12.abc.345/01de-35')).toBe(true)
+  })
+
+  test('Invalid alphanumeric CNPJ (wrong check digit)', () => {
+    expect(cnpjValidator('12.ABC.345/01DE-36')).toBe(false)
+  })
+
+  test('Invalid CNPJ when a check digit position holds a letter', () => {
+    expect(cnpjValidator('12.ABC.345/01DE-3F')).toBe(false)
+  })
+
+  test('Invalid CNPJ with all repeated characters', () => {
+    expect(cnpjValidator('AA.AAA.AAA/AAAA-AA')).toBe(false)
+  })
+
+  test('Invalid CNPJ with wrong length', () => {
+    expect(cnpjValidator('12.ABC.345/01DE')).toBe(false)
   })
 })
 

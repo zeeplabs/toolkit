@@ -46,44 +46,53 @@ export function cpfValidator(value: string): boolean {
 /**
  * Validates a Brazilian CNPJ (Cadastro Nacional da Pessoa Jurídica).
  *
- * The CNPJ is a unique identifier for Brazilian companies, and it follows a specific format
- * with 14 digits. This function checks the validity of a given CNPJ string by verifying its
- * length, ensuring it doesn't consist of repeated digits, and calculating its verification digits.
+ * The CNPJ is a unique identifier for Brazilian companies. This function validates both
+ * the legacy all-numeric format and the alphanumeric format introduced by the Receita
+ * Federal (effective 2026-07-31, Nota Técnica COCAD/SUARA/RFB nº 49/2024): positions 1-12
+ * (root + order) may be digits (0-9) or uppercase letters (A-Z), while positions 13-14
+ * (check digits) are always numeric. Input is normalized to uppercase and non-alphanumeric
+ * characters are stripped before validation, so masked or lowercase input is accepted.
  *
- * @param {string} value - The CNPJ string to be validated. It can contain non-digit characters
- *                         which will be removed during validation.
+ * @param {string} value - The CNPJ string to be validated. May contain mask punctuation
+ *                         (`.`, `/`, `-`) and lowercase letters, which are normalized away.
  * @returns {boolean} - Returns true if the CNPJ is valid, otherwise false.
  *
  * @example
- * // Valid CNPJ
+ * // Valid numeric CNPJ
  * console.log(cnpjValidator('12.345.678/0001-95')); // true
+ *
+ * // Valid alphanumeric CNPJ
+ * console.log(cnpjValidator('12.ABC.345/01DE-35')); // true
  *
  * // Invalid CNPJ
  * console.log(cnpjValidator('12.345.678/0001-96')); // false
  */
-export function brazilianCnpjValidator(value: string): boolean {
-  const cnpj = value.replace(/[^\d]+/g, '')
+export function cnpjValidator(value: string): boolean {
+  const cnpj = value.toUpperCase().replace(/[^0-9A-Z]/g, '')
 
   if (cnpj.length !== 14) return false
 
-  if (/^(\d)\1+$/.test(cnpj)) return false
+  if (/^(.)\1+$/.test(cnpj)) return false
 
-  const calculateDigit = (cnpj: string, length: number): number => {
+  if (!/^[0-9]{2}$/.test(cnpj.slice(12))) return false
+
+  const charValue = (char: string): number => char.charCodeAt(0) - 48
+
+  const calculateDigit = (base: string, weights: number[]): number => {
     let sum = 0
-    let position = length - 7
-
-    for (let i = length; i >= 1; i--) {
-      sum += parseInt(cnpj.charAt(length - i)) * position--
-      if (position < 2) position = 9
+    for (let i = 0; i < base.length; i++) {
+      sum += charValue(base.charAt(i)) * weights[i]
     }
-
-    const result = 11 - (sum % 11)
-    return result > 9 ? 0 : result
+    const remainder = sum % 11
+    return remainder < 2 ? 0 : 11 - remainder
   }
 
-  const baseCnpj = cnpj.substring(0, 12)
-  const digit1 = calculateDigit(baseCnpj, 12)
-  const digit2 = calculateDigit(cnpj.substring(0, 13), 13)
+  const weights1 = [5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2]
+  const weights2 = [6, 5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2]
+
+  const base12 = cnpj.substring(0, 12)
+  const digit1 = calculateDigit(base12, weights1)
+  const digit2 = calculateDigit(base12 + digit1, weights2)
 
   return (
     digit1 === parseInt(cnpj.charAt(12)) && digit2 === parseInt(cnpj.charAt(13))
