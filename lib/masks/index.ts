@@ -171,3 +171,22 @@ export const globalCellphoneMask = (
 export function clearMask(value: string): string {
   return value.replace(/\D/g, '')
 }
+
+/**
+ * Removes CNPJ mask punctuation while preserving letters, for the alphanumeric CNPJ format.
+ *
+ * Unlike `clearMask` (which strips everything but digits, for CPF/phone/CEP), this keeps
+ * letters intact — stripping only `clearMask` would destroy an alphanumeric CNPJ's root/order
+ * characters. Uppercases the result, so it round-trips with `cnpjMask`'s output regardless of
+ * input case.
+ *
+ * @param {string} value - The masked CNPJ string, e.g. `'12.ABC.345/01DE-35'`.
+ * @returns {string} - The unmasked value with letters preserved, e.g. `'12ABC34501DE35'`.
+ *
+ * @example
+ * console.log(cnpjClearMask('12.ABC.345/01DE-35')); // '12ABC34501DE35'
+ * console.log(cnpjClearMask('12.345.678/0001-95')); // '12345678000195'
+ */
+export function cnpjClearMask(value: string): string {
+  return value.toUpperCase().replace(/[^0-9A-Z]/g, '')
+}

@@ -173,6 +173,16 @@ import { clearMask } from '@zeeptech/toolkit'
 clearMask('123.456.789-09')) // Ex: '12345678909'
 ```
 
+### CNPJ Clear Mask
+
+- Removes CNPJ mask punctuation while preserving letters, for the alphanumeric CNPJ format. Use this instead of `clearMask` when unmasking a CNPJ, since `clearMask` strips letters.
+
+```js
+import { cnpjClearMask } from '@zeeptech/toolkit'
+
+cnpjClearMask('12.ABC.345/01DE-35') // Ex: '12ABC34501DE35'
+```
+
 ## Normalize
 
 ### Normalize Name

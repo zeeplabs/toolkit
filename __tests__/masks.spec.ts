@@ -5,6 +5,7 @@ import {
   brazilianTelephoneMask,
   globalCellphoneMask,
   clearMask,
+  cnpjClearMask,
 } from '../lib/masks'
 
 describe('cpfMask', () => {
@@ -109,5 +110,27 @@ describe('clearMask', () => {
   test('should clear mask from phone number', () => {
     const result = clearMask('+55 (21) 98765-4321')
     expect(result).toBe('5521987654321')
+  })
+})
+
+describe('cnpjClearMask', () => {
+  test('should clear mask from an alphanumeric CNPJ', () => {
+    const result = cnpjClearMask('12.ABC.345/01DE-35')
+    expect(result).toBe('12ABC34501DE35')
+  })
+
+  test('should clear mask from a numeric CNPJ', () => {
+    const result = cnpjClearMask('12.345.678/0001-95')
+    expect(result).toBe('12345678000195')
+  })
+
+  test('should uppercase lowercase letters', () => {
+    const result = cnpjClearMask('12.abc.345/01de-35')
+    expect(result).toBe('12ABC34501DE35')
+  })
+
+  test('should round-trip with cnpjMask', () => {
+    const raw = '12ABC34501DE35'
+    expect(cnpjClearMask(cnpjMask(raw))).toBe(raw)
   })
 })
