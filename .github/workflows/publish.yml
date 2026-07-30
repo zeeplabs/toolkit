@@ -73,8 +73,30 @@ jobs:
         with:
           fetch-depth: 0
 
+      # Commits land straight on main (no PR flow), so GitHub's PR-based
+      # generate_release_notes has nothing to list. Build the notes from
+      # commit subjects since the previous tag instead.
+      - name: Generate release notes
+        run: |
+          PREV_TAG=$(git describe --tags --abbrev=0 "${GITHUB_REF_NAME}~1" 2>/dev/null || true)
+          {
+            echo "## What's Changed"
+            echo
+            if [ -n "$PREV_TAG" ]; then
+              git log --pretty=format:"- %s (%h)" "$PREV_TAG..${GITHUB_REF_NAME}"
+            else
+              git log --pretty=format:"- %s (%h)" "${GITHUB_REF_NAME}"
+            fi
+            echo
+            echo
+            if [ -n "$PREV_TAG" ]; then
+              echo "**Full Changelog**: https://github.com/${{ github.repository }}/compare/${PREV_TAG}...${GITHUB_REF_NAME}"
+            fi
+          } > RELEASE_NOTES.md
+          cat RELEASE_NOTES.md
+
       - name: Create Release
         uses: softprops/action-gh-release@v2
         with:
           name: ${{ github.ref_name }}
-          generate_release_notes: true
+          body_path: RELEASE_NOTES.md
