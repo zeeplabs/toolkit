@@ -112,15 +112,14 @@ formatDecimal(1234.56) // Ex: '1234,56'
 
 ## Masks
 
-### CPF or CNPJ Mask
+### CPF Mask
 
-- Applies CPF or CNPJ mask to a string.
+- Applies a CPF mask to a string.
 
 ```js
-import { cpfOrCnpjMask } from '@zeeptech/toolkit'
+import { cpfMask } from '@zeeptech/toolkit'
 
-cpfOrCnpjMask('12345678909')) // Ex CPF: '123.456.789-09'
-cpfOrCnpjMask('68451802000151')) // EX CNPJ: '68.451.802/0001-51'
+cpfMask('12345678909') // Ex: '123.456.789-09'
 ```
 
 ### Brazilian Zipcode Mask

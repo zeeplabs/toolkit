@@ -1,20 +1,23 @@
 import {
-  cpfOrCnpjMask,
+  cpfMask,
   brazilianZipcodeMask,
   brazilianTelephoneMask,
   globalCellphoneMask,
   clearMask,
 } from '../lib/masks'
 
-describe('cpfOrCnpjMask', () => {
+describe('cpfMask', () => {
   test('should apply CPF mask', () => {
-    const result = cpfOrCnpjMask('12345678909')
+    const result = cpfMask('12345678909')
     expect(result).toBe('123.456.789-09')
   })
 
-  test('should apply CNPJ mask', () => {
-    const result = cpfOrCnpjMask('12345678000195')
-    expect(result).toBe('12.345.678/0001-95')
+  test('should progressively mask partial input while typing', () => {
+    expect(cpfMask('1')).toBe('1')
+    expect(cpfMask('123')).toBe('123')
+    expect(cpfMask('1234')).toBe('123.4')
+    expect(cpfMask('123456789')).toBe('123.456.789')
+    expect(cpfMask('12345678909')).toBe('123.456.789-09')
   })
 })
 

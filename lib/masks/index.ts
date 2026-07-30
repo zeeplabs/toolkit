@@ -1,34 +1,24 @@
 import { countries } from '../utils/countries'
 
 /**
- * Applies a mask to a given value as CPF or CNPJ.
+ * Applies a CPF mask to a string.
  *
- * This function formats the input value as a CPF (xxx.xxx.xxx-xx) or CNPJ (xx.xxx.xxx/xxxx-xx)
- * depending on the length of the numeric input.
+ * Formats the input as a CPF (xxx.xxx.xxx-xx). Formats progressively as digits are
+ * typed — it does not require the full number to be present, so it can be used directly
+ * in an input's `onChange`.
  *
  * @param {string} value - The value to be formatted, containing only digits.
- * @returns {string} - The formatted value with CPF or CNPJ mask applied.
+ * @returns {string} - The formatted value with the CPF mask applied.
  *
  * @example
- * // Apply CPF mask
- * console.log(cpfCnpjMask('12345678909')); // '123.456.789-09'
- *
- * // Apply CNPJ mask
- * console.log(cpfCnpjMask('12345678000195')); // '12.345.678/0001-95'
+ * console.log(cpfMask('12345678909')); // '123.456.789-09'
  */
-export function cpfOrCnpjMask(value: string): string {
+export function cpfMask(value: string): string {
   value = value.replace(/\D/g, '')
 
-  if (value.length <= 11) {
-    value = value.replace(/(\d{3})(\d)/, '$1.$2')
-    value = value.replace(/(\d{3})(\d)/, '$1.$2')
-    value = value.replace(/(\d{3})(\d{1,2})$/, '$1-$2')
-  } else {
-    value = value.replace(/^(\d{2})(\d)/, '$1.$2')
-    value = value.replace(/^(\d{2})\.(\d{3})(\d)/, '$1.$2.$3')
-    value = value.replace(/\.(\d{3})(\d)/, '.$1/$2')
-    value = value.replace(/(\d{4})(\d)/, '$1-$2')
-  }
+  value = value.replace(/(\d{3})(\d)/, '$1.$2')
+  value = value.replace(/(\d{3})(\d)/, '$1.$2')
+  value = value.replace(/(\d{3})(\d{1,2})$/, '$1-$2')
 
   return value
 }
