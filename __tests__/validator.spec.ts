@@ -1,5 +1,5 @@
 import {
-  brazilianCpfValidator,
+  cpfValidator,
   brazilianCnpjValidator,
   emailIsValid,
   nameIsValid,
@@ -10,13 +10,13 @@ import {
   passwordStrongValidator,
 } from '../lib/validators'
 
-describe('brazilianCpfValidator', () => {
+describe('cpfValidator', () => {
   test('Valid CPF', () => {
-    expect(brazilianCpfValidator('123.456.789-09')).toBe(true)
+    expect(cpfValidator('123.456.789-09')).toBe(true)
   })
 
   test('Invalid CPF', () => {
-    expect(brazilianCpfValidator('123.456.789-00')).toBe(false)
+    expect(cpfValidator('123.456.789-00')).toBe(false)
   })
 })
 

@@ -16,7 +16,7 @@
  * // Invalid CPF
  * console.log(cpfValidator('123.456.789-00')); // false
  */
-export function brazilianCpfValidator(value: string): boolean {
+export function cpfValidator(value: string): boolean {
   const cpf = value.replace(/\D/g, '')
 
   if (cpf.length !== 11) return false

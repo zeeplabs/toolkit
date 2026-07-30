@@ -395,14 +395,14 @@ capitalizeWords('hello world') // Ex: 'Hello World'
 
 ## Validators
 
-### BrazilianCpfValidator
+### CPF Validator
 
 - Validates a Brazilian CPF.
 
 ```js
-import { brazilianCpfValidator } from '@zeeptech/toolkit'
+import { cpfValidator } from '@zeeptech/toolkit'
 
-brazilianCpfValidator('123.456.789-09') // Ex: true ou false
+cpfValidator('123.456.789-09') // Ex: true ou false
 ```
 
 ### Brazilian CNPJ Validator
