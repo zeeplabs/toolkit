@@ -129,7 +129,7 @@ Expected: PASS, `cpfValidator` describe block green.
 
 In `README.md`, change lines 398-406 from:
 
-```markdown
+````markdown
 ### BrazilianCpfValidator
 
 - Validates a Brazilian CPF.
@@ -139,7 +139,9 @@ import { brazilianCpfValidator } from '@zeeptech/toolkit'
 
 brazilianCpfValidator('123.456.789-09') // Ex: true ou false
 ```
-```
+````
+
+````
 
 to:
 
@@ -152,8 +154,9 @@ to:
 import { cpfValidator } from '@zeeptech/toolkit'
 
 cpfValidator('123.456.789-09') // Ex: true ou false
-```
-```
+````
+
+````
 
 - [ ] **Step 6: Full verification and commit**
 
@@ -170,7 +173,7 @@ Consistency rename per docs/superpowers/specs/2026-07-30-cnpj-alfanumerico-desig
 change, package unpublished so no deprecation alias needed.
 EOF
 )"
-```
+````
 
 ---
 
@@ -317,7 +320,7 @@ Expected: PASS, all 8 `cnpjValidator` cases plus the untouched `cpfValidator` ca
 
 In `README.md`, change lines 408-416 from:
 
-```markdown
+````markdown
 ### Brazilian CNPJ Validator
 
 - Validates a Brazilian CNPJ.
@@ -327,7 +330,9 @@ import { brazilianCnpjValidator } from '@zeeptech/toolkit'
 
 brazilianCnpjValidator('12.345.678/0001-95') // Ex: true ou false
 ```
-```
+````
+
+````
 
 to:
 
@@ -341,8 +346,9 @@ import { cnpjValidator } from '@zeeptech/toolkit'
 
 cnpjValidator('12.345.678/0001-95') // Ex: true ou false
 cnpjValidator('12.ABC.345/01DE-35') // Ex: true ou false
-```
-```
+````
+
+````
 
 - [ ] **Step 6: Full verification and commit**
 
@@ -363,7 +369,7 @@ algorithm for all-numeric CNPJs — no regression for existing callers.
 Per docs/superpowers/specs/2026-07-30-cnpj-alfanumerico-design.md.
 EOF
 )"
-```
+````
 
 ---
 
@@ -454,7 +460,7 @@ Expected: PASS, `cpfMask` describe block green.
 
 In `README.md`, change lines 113-124 from:
 
-```markdown
+````markdown
 ## Masks
 
 ### CPF or CNPJ Mask
@@ -467,7 +473,9 @@ import { cpfOrCnpjMask } from '@zeeptech/toolkit'
 cpfOrCnpjMask('12345678909')) // Ex CPF: '123.456.789-09'
 cpfOrCnpjMask('68451802000151')) // EX CNPJ: '68.451.802/0001-51'
 ```
-```
+````
+
+````
 
 to:
 
@@ -482,8 +490,9 @@ to:
 import { cpfMask } from '@zeeptech/toolkit'
 
 cpfMask('12345678909') // Ex: '123.456.789-09'
-```
-```
+````
+
+````
 
 (The CNPJ Mask section is added right after this one in Task 4.)
 
@@ -503,7 +512,7 @@ so cnpjMask (next commit) can carry alphanumeric logic without a
 shared auto-detection heuristic.
 EOF
 )"
-```
+````
 
 ---
 
@@ -621,7 +630,7 @@ Expected: PASS, all `cnpjMask` cases green alongside `cpfMask`.
 
 In `README.md`, right after the "CPF Mask" section written in Task 3, add:
 
-```markdown
+````markdown
 ### CNPJ Mask
 
 - Applies a CNPJ mask to a string — accepts both the legacy all-numeric format and the alphanumeric format effective 2026-07-31.
@@ -632,7 +641,9 @@ import { cnpjMask } from '@zeeptech/toolkit'
 cnpjMask('68451802000151') // Ex: '68.451.802/0001-51'
 cnpjMask('12ABC34501DE35') // Ex: '12.ABC.345/01DE-35'
 ```
-```
+````
+
+````
 
 - [ ] **Step 6: Full verification and commit**
 
@@ -650,7 +661,7 @@ order positions per the Receita Federal's 2026-07-31 alphanumeric
 format. Per docs/superpowers/specs/2026-07-30-cnpj-alfanumerico-design.md.
 EOF
 )"
-```
+````
 
 ---
 
@@ -742,7 +753,7 @@ Expected: PASS, all `cnpjClearMask` cases green.
 
 Using the location found in Step 1, insert:
 
-```markdown
+````markdown
 ### CNPJ Clear Mask
 
 - Removes CNPJ mask punctuation while preserving letters, for the alphanumeric CNPJ format. Use this instead of `clearMask` when unmasking a CNPJ, since `clearMask` strips letters.
@@ -752,7 +763,9 @@ import { cnpjClearMask } from '@zeeptech/toolkit'
 
 cnpjClearMask('12.ABC.345/01DE-35') // Ex: '12ABC34501DE35'
 ```
-```
+````
+
+````
 
 - [ ] **Step 7: Full verification and commit**
 
@@ -770,7 +783,7 @@ an alphanumeric CNPJ destroys its root/order characters. Round-trips
 with cnpjMask. Per docs/superpowers/specs/2026-07-30-cnpj-alfanumerico-design.md.
 EOF
 )"
-```
+````
 
 ---
 
