@@ -34,7 +34,7 @@
 - Consumes: none (first task).
 - Produces: `cpfValidator(value: string): boolean` — identical behavior to the old `brazilianCpfValidator`, same signature. Later tasks do not depend on this function directly.
 
-- [ ] **Step 1: Update the test file to use the new name**
+- [x] **Step 1: Update the test file to use the new name**
 
 In `__tests__/validator.spec.ts`, change the import and describe block:
 
@@ -64,12 +64,12 @@ describe('cpfValidator', () => {
 
 (Leave `brazilianCnpjValidator` as-is in this file for now — it's renamed in Task 2.)
 
-- [ ] **Step 2: Run tests to confirm the expected failure**
+- [x] **Step 2: Run tests to confirm the expected failure**
 
 Run: `npx jest __tests__/validator.spec.ts`
 Expected: FAIL — `'../lib/validators' does not provide an export named 'cpfValidator'` (or similar TS/module error), since the source still exports `brazilianCpfValidator`.
 
-- [ ] **Step 3: Rename the function in the source**
+- [x] **Step 3: Rename the function in the source**
 
 In `lib/validators/index.ts`, change the JSDoc `@example` (lines 12-17) and the function declaration (line 19) from `brazilianCpfValidator` to `cpfValidator`:
 
@@ -120,12 +120,12 @@ export function cpfValidator(value: string): boolean {
 }
 ```
 
-- [ ] **Step 4: Run tests to confirm they pass**
+- [x] **Step 4: Run tests to confirm they pass**
 
 Run: `npx jest __tests__/validator.spec.ts`
 Expected: PASS, `cpfValidator` describe block green.
 
-- [ ] **Step 5: Update README**
+- [x] **Step 5: Update README**
 
 In `README.md`, change lines 398-406 from:
 
@@ -158,7 +158,7 @@ cpfValidator('123.456.789-09') // Ex: true ou false
 
 ````
 
-- [ ] **Step 6: Full verification and commit**
+- [x] **Step 6: Full verification and commit**
 
 Run: `npm run build && npm run lint:check && npx prettier --check . && npx jest`
 Expected: all green.
@@ -190,7 +190,7 @@ EOF
 - Consumes: none directly (independent of Task 1's `cpfValidator`).
 - Produces: `cnpjValidator(value: string): boolean`. Validates both all-numeric CNPJ (14 digits) and alphanumeric CNPJ (letters A-Z allowed in positions 1-12, digits only in positions 13-14). Case-insensitive (normalizes to uppercase internally). No other task consumes this function.
 
-- [ ] **Step 1: Write the failing tests**
+- [x] **Step 1: Write the failing tests**
 
 In `__tests__/validator.spec.ts`, update the import to add `cnpjValidator` (replacing `brazilianCnpjValidator`) and replace the CNPJ describe block:
 
@@ -244,12 +244,12 @@ describe('cnpjValidator', () => {
 })
 ```
 
-- [ ] **Step 2: Run tests to confirm they fail**
+- [x] **Step 2: Run tests to confirm they fail**
 
 Run: `npx jest __tests__/validator.spec.ts`
 Expected: FAIL — `cnpjValidator` not exported yet (source still exports `brazilianCnpjValidator`), and even once renamed the alphanumeric cases would fail against the old digit-only algorithm.
 
-- [ ] **Step 3: Rewrite the function in the source**
+- [x] **Step 3: Rewrite the function in the source**
 
 In `lib/validators/index.ts`, replace lines 46-91 (the `brazilianCnpjValidator` JSDoc + function) with:
 
@@ -311,12 +311,12 @@ export function cnpjValidator(value: string): boolean {
 }
 ```
 
-- [ ] **Step 4: Run tests to confirm they pass**
+- [x] **Step 4: Run tests to confirm they pass**
 
 Run: `npx jest __tests__/validator.spec.ts`
 Expected: PASS, all 8 `cnpjValidator` cases plus the untouched `cpfValidator` cases green.
 
-- [ ] **Step 5: Update README**
+- [x] **Step 5: Update README**
 
 In `README.md`, change lines 408-416 from:
 
@@ -350,7 +350,7 @@ cnpjValidator('12.ABC.345/01DE-35') // Ex: true ou false
 
 ````
 
-- [ ] **Step 6: Full verification and commit**
+- [x] **Step 6: Full verification and commit**
 
 Run: `npm run build && npm run lint:check && npx prettier --check . && npx jest`
 Expected: all green (8 new CNPJ cases replace 2 old ones, net +6 vs. baseline at this point in the plan).
@@ -386,7 +386,7 @@ EOF
 - Consumes: none.
 - Produces: `cpfMask(value: string): string` — CPF-only formatting (`xxx.xxx.xxx-xx`), progressive (works on partial input). This is a pure extraction of the existing CPF branch of `cpfOrCnpjMask` — no behavior change. `cnpjMask` (Task 4) is a separate function; this task does not produce it.
 
-- [ ] **Step 1: Write the failing test**
+- [x] **Step 1: Write the failing test**
 
 In `__tests__/masks.spec.ts`, replace lines 1-19 (the `cpfOrCnpjMask` import and describe block) with:
 
@@ -417,12 +417,12 @@ describe('cpfMask', () => {
 
 (`cnpjMask` import/tests are added in Task 4 — do not add them here.)
 
-- [ ] **Step 2: Run tests to confirm the expected failure**
+- [x] **Step 2: Run tests to confirm the expected failure**
 
 Run: `npx jest __tests__/masks.spec.ts`
 Expected: FAIL — `'../lib/masks' does not provide an export named 'cpfMask'`.
 
-- [ ] **Step 3: Replace the source function**
+- [x] **Step 3: Replace the source function**
 
 In `lib/masks/index.ts`, replace lines 1-34 (the `cpfOrCnpjMask` JSDoc + function) with:
 
@@ -451,12 +451,12 @@ export function cpfMask(value: string): string {
 }
 ```
 
-- [ ] **Step 4: Run tests to confirm they pass**
+- [x] **Step 4: Run tests to confirm they pass**
 
 Run: `npx jest __tests__/masks.spec.ts`
 Expected: PASS, `cpfMask` describe block green.
 
-- [ ] **Step 5: Update README**
+- [x] **Step 5: Update README**
 
 In `README.md`, change lines 113-124 from:
 
@@ -496,7 +496,7 @@ cpfMask('12345678909') // Ex: '123.456.789-09'
 
 (The CNPJ Mask section is added right after this one in Task 4.)
 
-- [ ] **Step 6: Full verification and commit**
+- [x] **Step 6: Full verification and commit**
 
 Run: `npm run build && npm run lint:check && npx prettier --check . && npx jest`
 Expected: all green.
@@ -529,7 +529,7 @@ EOF
 - Consumes: none (independent of `cpfMask`).
 - Produces: `cnpjMask(value: string): string` — formats both numeric and alphanumeric CNPJ as `xx.xxx.xxx/xxxx-xx`, progressive, uppercases letters internally. Task 5 (`cnpjClearMask`) tests round-trip against this function's output, so its exact output format (uppercase, punctuation `.`/`/`/`-`) must match what's implemented here.
 
-- [ ] **Step 1: Write the failing tests**
+- [x] **Step 1: Write the failing tests**
 
 In `__tests__/masks.spec.ts`, add `cnpjMask` to the import list:
 
@@ -582,12 +582,12 @@ describe('cnpjMask', () => {
 })
 ```
 
-- [ ] **Step 2: Run tests to confirm they fail**
+- [x] **Step 2: Run tests to confirm they fail**
 
 Run: `npx jest __tests__/masks.spec.ts`
 Expected: FAIL — `cnpjMask` not exported yet.
 
-- [ ] **Step 3: Implement the function**
+- [x] **Step 3: Implement the function**
 
 In `lib/masks/index.ts`, add this function right after `cpfMask`:
 
@@ -621,12 +621,12 @@ export function cnpjMask(value: string): string {
 }
 ```
 
-- [ ] **Step 4: Run tests to confirm they pass**
+- [x] **Step 4: Run tests to confirm they pass**
 
 Run: `npx jest __tests__/masks.spec.ts`
 Expected: PASS, all `cnpjMask` cases green alongside `cpfMask`.
 
-- [ ] **Step 5: Update README**
+- [x] **Step 5: Update README**
 
 In `README.md`, right after the "CPF Mask" section written in Task 3, add:
 
@@ -645,7 +645,7 @@ cnpjMask('12ABC34501DE35') // Ex: '12.ABC.345/01DE-35'
 
 ````
 
-- [ ] **Step 6: Full verification and commit**
+- [x] **Step 6: Full verification and commit**
 
 Run: `npm run build && npm run lint:check && npx prettier --check . && npx jest`
 Expected: all green.
@@ -678,13 +678,13 @@ EOF
 - Consumes: `cnpjMask`'s exact output format from Task 4 (uppercase letters, `.`/`/`/`-` punctuation) — this task's round-trip test depends on that.
 - Produces: `cnpjClearMask(value: string): string`. No other task consumes this.
 
-- [ ] **Step 1: Check whether README already documents `clearMask`**
+- [x] **Step 1: Check whether README already documents `clearMask`**
 
 Run: `grep -n "### Clear Mask\|## Clear Mask" README.md`
 
 If a heading is found, note its line number — Step 5 below inserts right after that section. If nothing is found, Step 5 appends the new section at the end of the `## Masks` section instead (before the next `## ` heading).
 
-- [ ] **Step 2: Write the failing tests**
+- [x] **Step 2: Write the failing tests**
 
 In `__tests__/masks.spec.ts`, add this describe block after the existing `clearMask` block:
 
@@ -714,12 +714,12 @@ describe('cnpjClearMask', () => {
 
 Add `cnpjClearMask` to the top-of-file import list (alongside `cpfMask`, `cnpjMask`, etc.).
 
-- [ ] **Step 3: Run tests to confirm they fail**
+- [x] **Step 3: Run tests to confirm they fail**
 
 Run: `npx jest __tests__/masks.spec.ts`
 Expected: FAIL — `cnpjClearMask` not exported yet.
 
-- [ ] **Step 4: Implement the function**
+- [x] **Step 4: Implement the function**
 
 In `lib/masks/index.ts`, add this function right after `clearMask`:
 
@@ -744,12 +744,12 @@ export function cnpjClearMask(value: string): string {
 }
 ```
 
-- [ ] **Step 5: Run tests to confirm they pass**
+- [x] **Step 5: Run tests to confirm they pass**
 
 Run: `npx jest __tests__/masks.spec.ts`
 Expected: PASS, all `cnpjClearMask` cases green.
 
-- [ ] **Step 6: Update README**
+- [x] **Step 6: Update README**
 
 Using the location found in Step 1, insert:
 
@@ -767,7 +767,7 @@ cnpjClearMask('12.ABC.345/01DE-35') // Ex: '12ABC34501DE35'
 
 ````
 
-- [ ] **Step 7: Full verification and commit**
+- [x] **Step 7: Full verification and commit**
 
 Run: `npm run build && npm run lint:check && npx prettier --check . && npx jest`
 Expected: all green.
@@ -796,14 +796,14 @@ EOF
 - Consumes: all exports from Tasks 1-5 (`cpfValidator`, `cnpjValidator`, `cpfMask`, `cnpjMask`, `cnpjClearMask`).
 - Produces: nothing new — this is the plan's closing verification gate.
 
-- [ ] **Step 1: Grep for any remaining reference to the removed names**
+- [x] **Step 1: Grep for any remaining reference to the removed names**
 
 Run: `grep -rn "brazilianCpfValidator\|brazilianCnpjValidator\|cpfOrCnpjMask" lib __tests__ README.md`
 Expected: no output (all three names fully removed from source, tests, and docs).
 
 If this prints any match, open that file and fix it using the same rename mapping as Tasks 1-4 (`brazilianCpfValidator`→`cpfValidator`, `brazilianCnpjValidator`→`cnpjValidator`, `cpfOrCnpjMask`→`cpfMask` or `cnpjMask` depending on which branch's example it was) before proceeding.
 
-- [ ] **Step 2: Confirm the new exports are reachable from the package root**
+- [x] **Step 2: Confirm the new exports are reachable from the package root**
 
 Run: `node -e "const lib = require('./dist'); console.log(typeof lib.cpfValidator, typeof lib.cnpjValidator, typeof lib.cpfMask, typeof lib.cnpjMask, typeof lib.cnpjClearMask)"`
 
@@ -811,12 +811,12 @@ Run: `node -e "const lib = require('./dist'); console.log(typeof lib.cpfValidato
 
 Expected: `function function function function function` — all five new exports resolve through the `lib/index.ts` barrel (`export *`) with no explicit re-export list to update.
 
-- [ ] **Step 3: Full suite one more time**
+- [x] **Step 3: Full suite one more time**
 
 Run: `npm run build && npm run lint:check && npx prettier --check . && npx jest`
 Expected: all green. Final test count: 117 (baseline) − 6 (old `brazilianCpfValidator`, `brazilianCnpjValidator`, `cpfOrCnpjMask` tests removed: 2+2+2) + 20 (new `cpfValidator`: 2, `cnpjValidator`: 8, `cpfMask`: 2, `cnpjMask`: 4, `cnpjClearMask`: 4) = 131 passed.
 
-- [ ] **Step 4: Commit (only if Step 1 required a fixup; otherwise skip — nothing to commit)**
+- [x] **Step 4: Commit (only if Step 1 required a fixup; otherwise skip — nothing to commit)**
 
 ```bash
 git add -A
