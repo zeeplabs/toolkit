@@ -1,7 +1,7 @@
 {
   "name": "@zeeptech/toolkit",
   "description": "This library provides a comprehensive set of utility functions for various common tasks, including date calculations, formatting, masking, normalizing data, and validation",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "sideEffects": false,
