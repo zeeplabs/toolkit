@@ -30,6 +30,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: read
+      id-token: write
     steps:
       - uses: actions/checkout@v7
 
@@ -41,6 +42,11 @@ jobs:
 
       - name: Install Yarn
         run: npm install -g yarn
+
+      # Trusted publishing (OIDC) requires npm CLI >= 11.5.1; .nvmrc's Node
+      # version ships an older bundled npm, so upgrade it explicitly.
+      - name: Upgrade npm for trusted publishing support
+        run: npm install -g npm@latest
 
       - run: yarn install --frozen-lockfile
       - run: yarn build
@@ -55,8 +61,6 @@ jobs:
           fi
 
       - run: npm publish --access public
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
   release:
     name: Create GitHub Release
