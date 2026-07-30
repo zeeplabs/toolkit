@@ -1,6 +1,4 @@
-# Utility JavaScript Functions Library 📚
-
-> **Renamed:** this package was previously published as `js-essential-kit`. It is now `@zeeptech/toolkit`. See [Migration](#migration) below.
+# @zeeptech/toolkit 📚
 
 Welcome to the Utility JavaScript Functions Library! This library provides a comprehensive set of utility functions for various common tasks, including date calculations, formatting, masking, normalizing data, and validation. Each function is designed to make your development process easier and more efficient.
 
@@ -13,25 +11,6 @@ Welcome to the Utility JavaScript Functions Library! This library provides a com
 - [Validators](#validators)
 - [Utils](#utils)
 - [Others](#others)
-- [Migration](#migration)
-
-## Migration
-
-If you currently depend on `js-essential-kit`, switch to `@zeeptech/toolkit`:
-
-```bash
-npm uninstall js-essential-kit
-npm install @zeeptech/toolkit
-```
-
-No code changes beyond the package specifier — every named export (`calculateAge`, `cpfMask`, `cnpjMask`, etc.) has the same name and signature. Only the string in your `import`/`require` changes:
-
-```diff
-- import { calculateAge } from 'js-essential-kit'
-+ import { calculateAge } from '@zeeptech/toolkit'
-```
-
-`js-essential-kit` is deprecated on npm and will not receive further updates.
 
 ## Getting Started ✈️
 
