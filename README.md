@@ -24,7 +24,7 @@ npm uninstall js-essential-kit
 npm install @zeeptech/toolkit
 ```
 
-No code changes beyond the package specifier — every named export (`calculateAge`, `cpfOrCnpjMask`, etc.) has the same name and signature. Only the string in your `import`/`require` changes:
+No code changes beyond the package specifier — every named export (`calculateAge`, `cpfMask`, `cnpjMask`, etc.) has the same name and signature. Only the string in your `import`/`require` changes:
 
 ```diff
 - import { calculateAge } from 'js-essential-kit'

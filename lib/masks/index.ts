@@ -75,7 +75,7 @@ export function brazilianZipcodeMask(value: string): string {
  * Applies a mask to a Brazilian telephone number.
  *
  * This function formats the input value as a Brazilian telephone number, handling
- * both 8-digit and 9-digit phone numbers correctly. Like `cpfOrCnpjMask`, it
+ * both 8-digit and 9-digit phone numbers correctly. Like `cpfMask` and `cnpjMask`, it
  * formats progressively as digits are typed — it does not require the full
  * number to be present, so it can be used directly in an input's `onChange`.
  *
