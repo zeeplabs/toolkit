@@ -518,4 +518,4 @@ Feel free to contribute to this project or suggest new features. Happy coding! ð
 
 ## Licence
 
-The [Apache 2.0]() (APACHE 2.0)
+The [Apache 2.0](<>) (APACHE 2.0)
